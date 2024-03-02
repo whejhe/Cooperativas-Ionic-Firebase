@@ -1,0 +1,5 @@
+npm i firebase @angular/fire
+
+cambiar modo stricto a false en: ts.config.json
+
+2:51

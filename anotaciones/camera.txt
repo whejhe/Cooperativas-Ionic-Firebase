@@ -1,0 +1,21 @@
+npm install @capacitor/camera
+npm install @ionic/pwa-elements
+
+en main.ts:
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+defineCustomElements(window);
+
+en el servicio.ts:
+import { Camera, CameraResultType } from '@capacitor/camera';
+
+async takePicture(promptLabelHeader:string) {
+    return await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt,
+      promptLabelHeader,
+      promptLabelPhoto: 'Seleccione una imagen',
+      promptLabelPicture: 'Tomar una foto',
+    });
+  };
