@@ -1,10 +1,15 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
+@import "../app/pages/main/publicar/publicar.page.scss";
+@import "../app/pages/auth/login/login.page.scss";
+@import "../app/pages/auth/register/register.page.scss";
+@import "../app/pages/auth/forgot-password/forgot-password.page.scss";
+
 
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #c57a17;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -83,7 +88,7 @@
    */
 
   body {
-    --ion-color-primary: #428cff;
+    --ion-color-primary: #c57a17;
     --ion-color-primary-rgb: 66,140,255;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255,255,255;
@@ -236,7 +241,7 @@
 }
 
 html {
-  /* 
+  /*
    * For more information on dynamic font scaling, visit the documentation:
    * https://ionicframework.com/docs/layout/dynamic-font-scaling
    */

@@ -1,0 +1,55 @@
+<!--app/pages/main/portada/portada.page.html-->
+<app-header [showMenu]="true" title="Portada"></app-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!--PUBLICACIONES-->
+  <ion-list>
+    <ion-item>
+      <ion-searchbar placeholder="Buscar" [(ngModel)]="filtro"></ion-searchbar>
+    </ion-item>
+
+    <ion-card
+      class="publicacion-item"
+      *ngFor="let p of publicacion | filtrado:filtro; let i = index"
+    >
+      <ion-card-header>
+        <ion-card-title class="title-publicacion">{{p.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img class="image-publicacion" alt="p.title" [src]="p.image" />
+        <p>{{p.comentario}}</p>
+        <ion-card-subtitle>{{p.date}}</ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
+
+    <!--OPCIONES-->
+    <!-- <ion-item-options> -->
+    <!--EDITAR-->
+    <!-- <ion-item-option (click)="addUpdatePublicaciones(p)">
+          <ion-icon class="option-btn" name="create-outline"></ion-icon>
+        </ion-item-option> -->
+
+    <!--ELIMINAR-->
+    <!-- <ion-item-option (click)="confirmDeletePublicacion(p)" color="danger">
+          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options> -->
+  </ion-list>
+
+  <!--SIN PUBLICACIONES DISPONIBLES-->
+  <div *ngIf="!loading && publicacion.length === 0" class="empty">
+    <ion-icon name="shield-outline"></ion-icon>
+    <h3>No hay Publicaciones para mostrar</h3>
+  </div>
+
+  <!--NUEVA PUBLICACION-->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addUpdatePublicaciones()">
+      <ion-icon name="add" class="añadir"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

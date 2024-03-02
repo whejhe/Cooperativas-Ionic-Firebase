@@ -75,7 +75,7 @@ ion-button {
     padding: 20px;
 }
 
-.product-item {
+.publicacion-item {
     --padding-top: 20px;
 
     ion-avatar {
@@ -116,4 +116,12 @@ ion-button {
     .add-update-modal {
         --height: 680px;
     }
+}
+
+
+.fondo-color-custom {
+  --background: transparent;
+  --background-image: url('/assets/img/fondo-color.png');
+  --background-size: cover;
+  --background-repeat: no-repeat;
 }

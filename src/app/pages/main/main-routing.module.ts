@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MainPage } from './main.page';
-import { HomePage } from './home/home.page';
+import { PortadaPage } from './portada/portada.page';
 import { ProfilePage } from './profile/profile.page';
 import { AboutPage } from './about/about.page';
 import { CooperativesPage } from './cooperatives/cooperatives.page';
 import { ListaUsuariosPage } from './lista-usuarios/lista-usuarios.page';
 import { PublicarPage } from './publicar/publicar.page';
+import { HomePage } from './home/home.page';
 
 const routes: Routes = [
   {
@@ -15,8 +16,8 @@ const routes: Routes = [
     component: MainPage,
     children:[
       {
-        path: 'home',
-        component: HomePage
+        path: 'portada',
+        component: PortadaPage
       },
       {
         path: 'profile',
@@ -38,9 +39,12 @@ const routes: Routes = [
         path: 'publicar',
         component: PublicarPage
       },
+      {
+        path: 'home',
+        component: HomePage
+      },
     ]
   },
-
 ];
 
 @NgModule({

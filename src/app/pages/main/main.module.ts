@@ -8,12 +8,14 @@ import { MainPageRoutingModule } from './main-routing.module';
 
 import { MainPage } from './main.page';
 import { ProfilePage } from './profile/profile.page';
-import { HomePage } from './home/home.page';
+import { PortadaPage } from './portada/portada.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { AboutPage } from './about/about.page';
 import { CooperativesPage } from './cooperatives/cooperatives.page';
 import { ListaUsuariosPage } from './lista-usuarios/lista-usuarios.page';
 import { PublicarPage } from './publicar/publicar.page';
+import { FiltradoPipe } from 'src/app/pipes/filtrado.pipe';
+import { HomePage } from './home/home.page';
 
 @NgModule({
   imports: [
@@ -21,25 +23,28 @@ import { PublicarPage } from './publicar/publicar.page';
     FormsModule,
     IonicModule,
     MainPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
   ],
   exports: [
     MainPage,
     ProfilePage,
-    HomePage,
+    PortadaPage,
     AboutPage,
     CooperativesPage,
     ListaUsuariosPage,
-    PublicarPage
+    PublicarPage,
+    HomePage
   ],
   declarations: [
     MainPage,
     ProfilePage,
-    HomePage,
+    PortadaPage,
     AboutPage,
     CooperativesPage,
     ListaUsuariosPage,
-    PublicarPage
+    PublicarPage,
+    FiltradoPipe,
+    HomePage
   ]
 })
 export class MainPageModule {}

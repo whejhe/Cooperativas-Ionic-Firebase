@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/models/user.model';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-publicar',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicarPage implements OnInit {
 
-  constructor() { }
+  form = new FormGroup({
+    id: new FormControl(''),
+    title: new FormControl('', [Validators.required]),
+    image: new FormControl(''),
+    comentario: new FormControl('', [Validators.required]),
+    date: new FormControl(''),
+  })
+
+  firebaseSvc = inject(FirebaseService);
+  utilsSvc = inject(UtilsService);
 
   ngOnInit() {
   }
+
 
 }

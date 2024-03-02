@@ -1,25 +1,25 @@
+//app/components/nuevaPublicacion/nuevaPublicacion.component.ts
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Product } from 'src/app/models/products.model';
+import { Publicacion } from 'src/app/models/publicacion.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-add-update-product',
-  templateUrl: './add-update-product.component.html',
-  styleUrls: ['./add-update-product.component.scss'],
+  selector: 'app-nuevapublicacion',
+  templateUrl: './nuevaPublicacion.component.html',
+  styleUrls: ['./nuevaPublicacion.component.scss'],
 })
-export class AddUpdateProductComponent implements OnInit {
+export class NuevaPublicacionComponent implements OnInit {
 
-  @Input() product: Product;
+  @Input() publicacion: Publicacion;
 
   form = new FormGroup({
-    id: new FormControl(''),
-    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    image: new FormControl('', [Validators.required]),
-    price: new FormControl(null, [Validators.required, Validators.min(0)]),
-    soldUnits: new FormControl(null, [Validators.required, Validators.min(0)]),
+    title: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    image: new FormControl(''),
+    comentario: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    date: new FormControl(this.getCurrentFormattedDate()),
   })
 
   firebaseSvc = inject(FirebaseService);
@@ -29,43 +29,42 @@ export class AddUpdateProductComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user');
-    if(this.product){
-      this.form.setValue(this.product);
+    if(this.publicacion){
+      this.form.setValue(this.publicacion);
     }
+  }
+
+  //FORMATO FECHA
+  getCurrentFormattedDate(): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
   }
 
   //TOMAR O SELECCIONAR UNA IMAGEN
   async takeImage() {
-    const dataUrl = (await this.utilsSvc.takePicture('Imagen del Producto')).dataUrl;
+    const dataUrl = (await this.utilsSvc.takePicture('Imagen de Publicacion')).dataUrl;
     this.form.controls.image.setValue(dataUrl);
   }
 
   submit() {
     if (this.form.valid) {
-      if (this.product) {
-        this.updateProduct();
+      if (this.publicacion) {
+        this.updatePublicacion();
       } else {
-        this.createProduct();
+        this.createPublicacion();
       }
     }
   }
 
 
-  //CONVERTIR VALORES STRING A NUMBER
-  setNumberInput(){
-    let {soldUnits, price} = this.form.controls; 
-    if(soldUnits.value){
-      soldUnits.setValue(parseFloat(soldUnits.value));
-    }
-    if(price.value){
-      price.setValue(parseFloat(price.value));
-    }
-  }
+  //CREAR PUBLICACION
+  async createPublicacion() {
 
-  //CREAR PRODUCTO
-  async createProduct() {
-
-    let path = `users/${this.user.uid}/products`;
+    let path = `users/${this.user.uid}/publicaciones`;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
@@ -76,14 +75,14 @@ export class AddUpdateProductComponent implements OnInit {
     let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
     this.form.controls.image.setValue(imageUrl);
 
-    delete this.form.value.id;
+    // delete this.form.value.title;
 
     this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
 
       this.utilsSvc.dismissModal({ sucess: true });
 
       this.utilsSvc.presentToast({
-        message: 'Producto agregado',
+        message: 'Publicacion agregada correctamente',
         duration: 1500,
         color: 'success',
         position: 'middle',
@@ -106,29 +105,29 @@ export class AddUpdateProductComponent implements OnInit {
   }
 
   //ACTUALIZAR PRODUCTO
-  async updateProduct() {
+  async updatePublicacion() {
 
-    let path = `users/${this.user.uid}/products/${this.product.id}`;
+    let path = `users/${this.user.uid}/publicaciones/${this.publicacion.title}`;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
 
     //SUBIR IMAGEN Y OBTENER URL SI ES DIFERENTE
-    if (this.form.value.image !== this.product.image) {
+    if (this.form.value.image !== this.publicacion.image) {
       let dataUrl = this.form.value.image;
-      let imagePath = await this.firebaseSvc.getFilePath(this.product.image);
+      let imagePath = await this.firebaseSvc.getFilePath(this.publicacion.image);
       let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
       this.form.controls.image.setValue(imageUrl);
     }
 
-    delete this.form.value.id;
+    delete this.form.value.title;
 
     this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
 
       this.utilsSvc.dismissModal({ sucess: true });
 
       this.utilsSvc.presentToast({
-        message: 'Producto actualizado correctamente',
+        message: 'Publicacion actualizado correctamente',
         duration: 1500,
         color: 'success',
         position: 'middle',
