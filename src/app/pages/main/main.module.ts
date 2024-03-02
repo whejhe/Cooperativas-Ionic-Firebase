@@ -16,6 +16,7 @@ import { ListaUsuariosPage } from './lista-usuarios/lista-usuarios.page';
 import { PublicarPage } from './publicar/publicar.page';
 import { FiltradoPipe } from 'src/app/pipes/filtrado.pipe';
 import { HomePage } from './home/home.page';
+import { GaleriaPage } from './galeria/galeria.page';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { HomePage } from './home/home.page';
     CooperativesPage,
     ListaUsuariosPage,
     PublicarPage,
-    HomePage
+    HomePage,
+    GaleriaPage
   ],
   declarations: [
     MainPage,
@@ -44,7 +46,8 @@ import { HomePage } from './home/home.page';
     ListaUsuariosPage,
     PublicarPage,
     FiltradoPipe,
-    HomePage
+    HomePage,
+    GaleriaPage
   ]
 })
 export class MainPageModule {}

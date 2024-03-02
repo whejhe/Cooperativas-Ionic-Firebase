@@ -9,6 +9,7 @@ import { CooperativesPage } from './cooperatives/cooperatives.page';
 import { ListaUsuariosPage } from './lista-usuarios/lista-usuarios.page';
 import { PublicarPage } from './publicar/publicar.page';
 import { HomePage } from './home/home.page';
+import { GaleriaPage } from './galeria/galeria.page';
 
 const routes: Routes = [
   {
@@ -43,8 +44,13 @@ const routes: Routes = [
         path: 'home',
         component: HomePage
       },
+      {
+        path: 'galeria',
+        component: GaleriaPage
+      },
     ]
   },
+
 ];
 
 @NgModule({

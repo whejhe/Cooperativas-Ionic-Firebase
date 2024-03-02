@@ -1,11 +1,11 @@
-<app-header title="Registro" backButton="/auth"></app-header>
+<app-header title="R E G I S T R O" backButton="/auth"></app-header>
 
 <ion-content>
   <div class="d-flex-center">
 
     <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
-      <app-logo></app-logo>
+      <img class="logo" src="../../../assets/icon/logo-blanco.png" alt="">
 
       <!--NAME-->
       <app-custom-input

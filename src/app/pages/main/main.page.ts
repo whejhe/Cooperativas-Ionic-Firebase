@@ -19,6 +19,7 @@ export class MainPage implements OnInit {
     {title: "Cooperativas" , url: 'cooperatives', icon:'business-outline'},
     {title: "Lista de usuarios" , url: 'lista-usuarios', icon:'people-outline'},
     {title: "Publicar" , url: 'publicar', icon:'add-circle-outline'},
+    {title: "Galeria" , url: 'galeria', icon:'images-outline'},
   ]
 
   router = inject(Router);
