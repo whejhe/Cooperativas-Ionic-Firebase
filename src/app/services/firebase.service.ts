@@ -8,6 +8,8 @@ import { getFirestore, setDoc, doc, getDoc ,addDoc,collection, collectionData,qu
 import { UtilsService } from './utils.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getStorage, uploadString, ref, getDownloadURL, deleteObject } from 'firebase/storage';
+import { Observable } from 'rxjs';
+import { Grupo } from '../models/grupo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +42,17 @@ export class FirebaseService {
     return updateProfile(getAuth().currentUser, { displayName })
   }
 
+  // OBTENER TODOS LOS USUARIOS
+  getAllUsers():Observable<any[]> {
+    const path = 'users';
+    return this.getCollectionData(path);
+  }
+
+  // OBTENER UN USUARIO POR ID
+  getUserById(userId: string) {
+    return this.getDocument(`users/${userId}`);
+  }
+
   sendRecoveryEmail(email: string) {
     return sendPasswordResetEmail(getAuth(), email);
   }
@@ -52,6 +65,14 @@ export class FirebaseService {
 
   //BASE DE DATOS
 
+  //CREAR UNA COLECCION
+ async createCollection(path: string, data: any): Promise<any> {
+    const firestore = getFirestore();
+    const docRef = await addDoc(collection(firestore, path), data);
+    return docRef;
+  }
+
+  //OBTENER UNA COLECCION
   getCollectionData(path:string, collectionQuery?:any){
     const ref = collection(getFirestore(),path);
     return collectionData(query(ref,...collectionQuery),{idField:'id'});
@@ -76,7 +97,7 @@ export class FirebaseService {
   }
 
   //AGREGAR UN DOCUMENTO
-  addDocument(path: string, data: any) {
+  addDocument(path: string, data: any):Promise<any> {
     return addDoc(collection(getFirestore(), path), data);
   }
 
@@ -98,5 +119,47 @@ export class FirebaseService {
   deleteFile(path:string){
     return deleteObject(ref(getStorage(),path));
   }
+
+  //GRUPOS
+
+  // OBTENER TODOS LOS GRUPOS
+getAllGroups() {
+  const path = 'grupos';
+  return this.getCollectionData(path);
+}
+
+// OBTENER UN GRUPO POR ID
+getGroupById(groupId: string) {
+  const path = `grupos/${groupId}`;
+  return this.getDocument(path);
+}
+
+// CREAR UN NUEVO GRUPO
+async createGroup(group: Grupo, user: User): Promise<any> {
+  try {
+    group.members = [user.uid];
+    group.createdAt = new Date();
+    const documentReference = await this.createCollection('grupos', group);
+    console.log('Grupo creado con ID:', documentReference.id);
+
+    return documentReference;
+
+  } catch (error) {
+    console.error('Error al crear el grupo:', error);
+    throw error;
+  }
+}
+
+//ACTUALIZAR UN GRUPO
+updateGroup(groupId: string, updatedGroup: Partial<Grupo>) {
+  const path = `grupos/${groupId}`;
+  return this.updateDocument(path, updatedGroup);
+}
+
+//ELIMINAR UN GRUPO
+deleteGroup(groupId: string) {
+  const path = `grupos/${groupId}`;
+  return this.deleteDocument(path);
+}
 
 }

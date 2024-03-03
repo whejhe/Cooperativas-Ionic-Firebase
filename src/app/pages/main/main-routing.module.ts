@@ -10,6 +10,7 @@ import { ListaUsuariosPage } from './lista-usuarios/lista-usuarios.page';
 import { PublicarPage } from './publicar/publicar.page';
 import { HomePage } from './home/home.page';
 import { GaleriaPage } from './galeria/galeria.page';
+import { RegisterGroupPage } from './register-group/register-group.page';
 
 const routes: Routes = [
   {
@@ -48,9 +49,12 @@ const routes: Routes = [
         path: 'galeria',
         component: GaleriaPage
       },
+      {
+        path: 'register-group',
+        component: RegisterGroupPage
+      },
     ]
   },
-
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, AlertOptions, LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
-import { Camera, CameraResultType,CameraSource } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 
 @Injectable({
@@ -16,7 +16,7 @@ export class UtilsService {
   router = inject(Router);
   alerCtrl = inject(AlertController);
 
-  async takePicture(promptLabelHeader:string) {
+  async takePicture(promptLabelHeader: string) {
     return await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
@@ -29,7 +29,7 @@ export class UtilsService {
   };
 
   //ALERT
-  async presentAlert(opts?:AlertOptions){
+  async presentAlert(opts?: AlertOptions) {
     const alert = await this.alerCtrl.create(opts);
 
     await alert.present();
@@ -66,6 +66,62 @@ export class UtilsService {
 
   dismissModal(data?: any) {
     return this.modalCtrl.dismiss(data);
+  }
+
+  // OBTENER USUARIO ACTUAL
+  getCurrentUser() {
+    const user = this.getFromLocalStorage('user');
+    return user ? user : null;
+  }
+
+  // ACTUALIZAR USUARIO ACTUAL
+  updateCurrentUser(updatedUser: any) {
+    this.saveInLocalStorage('user', updatedUser);
+  }
+
+  // MOSTRAR FOTO DEL USUARIO ACTUAL
+  async showCurrentUserPhoto() {
+    const currentUser = this.getCurrentUser();
+
+    if (currentUser && currentUser.photoUrl) {
+      const alertOptions: AlertOptions = {
+        header: 'Foto de Perfil',
+        message: `<img src="${currentUser.photoUrl}" class="profile-photo" />`,
+        buttons: ['Cerrar']
+      };
+
+      await this.presentAlert(alertOptions);
+    } else {
+      await this.presentToast({ message: 'No hay foto de perfil disponible.', duration: 2000, position: 'bottom' });
+    }
+  }
+
+  // OBTENER GRUPO ACTUAL
+  getCurrentGroup() {
+    const group = this.getFromLocalStorage('group');
+    return group ? group : null;
+  }
+
+  // ACTUALIZAR GRUPO ACTUAL
+  updateCurrentGroup(updatedGroup: any) {
+    this.saveInLocalStorage('group', updatedGroup);
+  }
+
+  // MOSTRAR FOTO DEL GRUPO ACTUAL
+  async showCurrentGroupPhoto() {
+    const currentGroup = this.getCurrentGroup();
+
+    if (currentGroup && currentGroup.photoUrl) {
+      const alertOptions: AlertOptions = {
+        header: 'Foto de Grupo',
+        message: `<img src="${currentGroup.photoUrl}" class="group-photo" />`,
+        buttons: ['Cerrar']
+      };
+
+      await this.presentAlert(alertOptions);
+    } else {
+      await this.presentToast({ message: 'No hay foto de grupo disponible.', duration: 2000, position: 'bottom' });
+    }
   }
 
 }

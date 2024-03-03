@@ -1,0 +1,50 @@
+<app-header [showMenu]="true" title="REGISTRAR GRUPO"></app-header>
+
+<ion-content>
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+      <img class="logo" src="../../../../assets/icon/logo-blanco.png" alt="" />
+
+      <!--NAME-->
+      <app-custom-input autocomplete="name" icon="person-outline" [control]="form.controls.name" type="text"
+        label="Nombre"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['required']">
+          El nombre es requerido
+        </div>
+        <div *ngIf="form.controls.name.errors?.['minlength']">
+          El correo debe tener al menos 4 caracteres
+        </div>
+      </div>
+
+      <!--IMAGE-->
+
+      <!-- DESCRIPTION -->
+      <app-custom-input autocomplete="description" icon="document-text-outline" [control]="form.controls.description"
+        type="text" label="Descripción"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.description.errors && form.controls.description.touched">
+        <div *ngIf="form.controls.description.errors?.['required']">
+          La descripción es requerida
+        </div>
+      </div>
+
+      <!-- SECTOR -->
+      <app-custom-input autocomplete="sector" icon="business-outline" [control]="form.controls.sector" type="text"
+        label="Sector"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.sector.errors && form.controls.sector.touched">
+        <div *ngIf="form.controls.sector.errors?.['required']">
+          El sector es requerido
+        </div>
+      </div>
+
+
+      <ion-button expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+        Registrate
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
