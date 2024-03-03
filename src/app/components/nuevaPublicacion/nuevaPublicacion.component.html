@@ -1,5 +1,5 @@
 <!--app/components/nuevaPublicacion/nuevaPublicacion.component.html-->
-<app-header [isModal]="true" [title]="publicacion ? 'Actualizar Publicacion' : 'Agregar Publicacion'"></app-header>
+<!-- <app-header [isModal]="true" [title]="publicacion ? 'Actualizar Publicacion' : 'Agregar Publicacion'"></app-header> -->
 
 <ion-content>
   <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
@@ -46,5 +46,7 @@
       {{ publicacion ? "Actualizar Publicacion" : "Agregar Publicacion" }}
       <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
     </ion-button>
+
+    <img class="logo" src="../../../assets/icon/logo-blanco.png" alt="">
   </form>
 </ion-content>

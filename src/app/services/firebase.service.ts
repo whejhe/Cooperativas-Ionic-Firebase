@@ -8,8 +8,9 @@ import { getFirestore, setDoc, doc, getDoc ,addDoc,collection, collectionData,qu
 import { UtilsService } from './utils.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getStorage, uploadString, ref, getDownloadURL, deleteObject } from 'firebase/storage';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { Grupo } from '../models/grupo.model';
+import { QueryConstraint, getDocs } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -73,10 +74,20 @@ export class FirebaseService {
   }
 
   //OBTENER UNA COLECCION
-  getCollectionData(path:string, collectionQuery?:any){
-    const ref = collection(getFirestore(),path);
-    return collectionData(query(ref,...collectionQuery),{idField:'id'});
+  // getCollectionData(path:string, collectionQuery?:any){
+  //   const ref = collection(getFirestore(),path);
+  //   return collectionData(query(ref,...collectionQuery),{idField:'id'});
+  // }
+  getCollectionData(path: string, collectionQuery?: QueryConstraint[]): Observable<any[]> {
+    const ref = collection(getFirestore(), path);
+
+    if (collectionQuery) {
+      return collectionData(query(ref, ...collectionQuery), { idField: 'id' });
+    } else {
+      return collectionData(ref, { idField: 'id' });
+    }
   }
+
 
   setDocument(path: string, data: any) {
     return setDoc(doc(getFirestore(), path), data);
@@ -123,7 +134,7 @@ export class FirebaseService {
   //GRUPOS
 
   // OBTENER TODOS LOS GRUPOS
-getAllGroups() {
+getAllGroups():Observable<Grupo[]> {
   const path = 'grupos';
   return this.getCollectionData(path);
 }
@@ -139,10 +150,9 @@ async createGroup(group: Grupo, user: User): Promise<any> {
   try {
     group.members = [user.uid];
     group.createdAt = new Date();
-    const documentReference = await this.createCollection('grupos', group);
-    console.log('Grupo creado con ID:', documentReference.id);
-
-    return documentReference;
+    const path = 'grupos';
+    const { id, ...groupWithoutId } = group;
+    return addDoc(collection(getFirestore(), path), groupWithoutId);
 
   } catch (error) {
     console.error('Error al crear el grupo:', error);

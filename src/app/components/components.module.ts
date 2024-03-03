@@ -5,6 +5,7 @@ import { CustomInputComponent } from './custom-input/custom-input.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NuevaPublicacionComponent } from './nuevaPublicacion/nuevaPublicacion.component';
+import { TerminosycondicionesComponent } from './terminosycondiciones/terminosycondiciones.component';
 
 
 
@@ -12,13 +13,15 @@ import { NuevaPublicacionComponent } from './nuevaPublicacion/nuevaPublicacion.c
   declarations: [
     HeaderComponent,
     CustomInputComponent,
-    NuevaPublicacionComponent
+    NuevaPublicacionComponent,
+    TerminosycondicionesComponent
   ],
   exports: [
     HeaderComponent,
     CustomInputComponent,
     ReactiveFormsModule,
-    NuevaPublicacionComponent
+    NuevaPublicacionComponent,
+    TerminosycondicionesComponent
   ],
   imports: [
     CommonModule,

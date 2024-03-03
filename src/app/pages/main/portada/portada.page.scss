@@ -34,9 +34,18 @@ ion-content{
 
 }
 .title-publicacion{
-  color: rgb(204, 200, 200);
+  color: rgb(34, 33, 33);
   font-size: 1.5em;
   text-align: center;
   text-decoration: underline;
+}
+
+.publicacion-item{
+  background-color: rgb(236, 233, 233);
+  margin: 1em;
+  border-radius: 5px;
+  padding: 0.5em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  color: black;
 }
 

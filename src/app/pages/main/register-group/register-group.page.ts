@@ -36,9 +36,13 @@ export class RegisterGroupPage implements OnInit {
       this.form.controls.members.setValue([currentUser.uid]);
 
       this.firebaseSvc.createGroup(this.form.value as Grupo, currentUser).then((res: any) => {
-        const groupId = res.id;
-        this.form.patchValue({ id: groupId });
-        this.setGroupInfo(groupId);
+        const groupId = res?.id;
+        if(groupId){
+          this.form.patchValue({ id: groupId });
+          this.setGroupInfo(groupId);
+        }else{
+          console.error('Error al obtener el id del grupo');
+        }
       }).catch((error: any) => {
         console.log(error);
 
@@ -82,6 +86,16 @@ export class RegisterGroupPage implements OnInit {
       });
     }
   }
+
+  async takePicture() {
+    const promptLabelHeader = 'Seleccione una imagen para el grupo';
+    const result = await this.utilsSvc.takePicture(promptLabelHeader);
+
+    if (result && result.dataUrl) {
+      this.form.controls.image.setValue(result.dataUrl);
+    }
+  }
+
 
   ngOnInit() {
   }

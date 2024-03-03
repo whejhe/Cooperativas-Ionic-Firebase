@@ -18,7 +18,17 @@
         </div>
       </div>
 
-      <!--IMAGE-->
+      <!-- IMAGE -->
+      <ion-item>
+        <ion-label>Imagen</ion-label>
+        <ion-button (click)="takePicture()">
+          <ion-icon slot="start" name="camera-outline"></ion-icon>
+          Seleccionar Imagen
+        </ion-button>
+      </ion-item>
+      <img *ngIf="form.controls.image.value" [src]="form.controls.image.value" class="selected-image"
+        alt="Imagen seleccionada" />
+
 
       <!-- DESCRIPTION -->
       <app-custom-input autocomplete="description" icon="document-text-outline" [control]="form.controls.description"

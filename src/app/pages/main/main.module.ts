@@ -16,7 +16,6 @@ import { ListaUsuariosPage } from './lista-usuarios/lista-usuarios.page';
 import { PublicarPage } from './publicar/publicar.page';
 import { FiltradoPipe } from 'src/app/pipes/filtrado.pipe';
 import { HomePage } from './home/home.page';
-import { GaleriaPage } from './galeria/galeria.page';
 import { RegisterGroupPage } from './register-group/register-group.page';
 
 @NgModule({
@@ -36,7 +35,6 @@ import { RegisterGroupPage } from './register-group/register-group.page';
     ListaUsuariosPage,
     PublicarPage,
     HomePage,
-    GaleriaPage,
     RegisterGroupPage
   ],
   declarations: [
@@ -49,7 +47,6 @@ import { RegisterGroupPage } from './register-group/register-group.page';
     PublicarPage,
     FiltradoPipe,
     HomePage,
-    GaleriaPage,
     RegisterGroupPage
   ]
 })
