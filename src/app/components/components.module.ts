@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NuevaPublicacionComponent } from './nuevaPublicacion/nuevaPublicacion.component';
 import { TerminosycondicionesComponent } from './terminosycondiciones/terminosycondiciones.component';
+import { EventFormComponent } from './event-form/event-form.component';
 
 
 
@@ -14,14 +15,16 @@ import { TerminosycondicionesComponent } from './terminosycondiciones/terminosyc
     HeaderComponent,
     CustomInputComponent,
     NuevaPublicacionComponent,
-    TerminosycondicionesComponent
+    TerminosycondicionesComponent,
+    EventFormComponent
   ],
   exports: [
     HeaderComponent,
     CustomInputComponent,
     ReactiveFormsModule,
     NuevaPublicacionComponent,
-    TerminosycondicionesComponent
+    TerminosycondicionesComponent,
+    EventFormComponent
   ],
   imports: [
     CommonModule,

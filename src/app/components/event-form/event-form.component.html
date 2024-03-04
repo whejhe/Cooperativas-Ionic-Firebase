@@ -1,0 +1,79 @@
+<app-header [isModal]="true" [title]="evento ? 'Actualizar evento' : 'Agregar evento'"></app-header>
+
+<ion-content>
+  <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
+    <ion-avatar *ngIf="form.value.image">
+      <img [src]="form.value.image" />
+    </ion-avatar>
+
+    <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+    <br />
+
+    <!--TOMAR O SELECCIONAR UNA IMAGEN-->
+    <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+      Tomar/Seleccionar
+    </ion-button>
+
+    <!--TITULO-->
+    <app-custom-input autocomplete="title" [control]="form.controls.title" type="text"
+      label="Titulo"></app-custom-input>
+
+    <div class="validators" *ngIf="form.controls.title.errors && form.controls.title.touched">
+      <div *ngIf="form.controls.title.errors?.['required']">
+        El titulo es requerido
+      </div>
+      <div *ngIf="form.controls.title.errors?.['minlength']">
+        Minimo de 4 caracteres
+      </div>
+    </div>
+
+    <!-- FECHA -->
+    <ion-item>
+      <ion-label position="stacked">Fecha</ion-label>
+      <ion-datetime
+        display-format="DD/MM/YYYY HH:mm"
+        picker-format="DD/MM/YYYY HH:mm"
+        formControlName="date"
+      ></ion-datetime>
+    </ion-item>
+
+    <!-- UBICACION -->
+    <app-custom-input autocomplete="location" [control]="form.controls.ubicacion" type="text" label="Ubicación"></app-custom-input>
+
+    <div class="validators" *ngIf="form.controls.ubicacion.errors && form.controls.ubicacion.touched">
+      <div *ngIf="form.controls.ubicacion.errors?.['required']">
+        La ubicación es requerida
+      </div>
+    </div>
+
+    <!-- SECTOR -->
+    <app-custom-input autocomplete="sector" [control]="form.controls.sector" type="text" label="Sector"></app-custom-input>
+
+    <div class="validators" *ngIf="form.controls.sector.errors && form.controls.sector.touched">
+      <div *ngIf="form.controls.sector.errors?.['required']">
+        El sector es requerido
+      </div>
+    </div>
+
+    <!--DESCRIPCION-->
+    <app-custom-input [control]="form.controls.description" type="text" label="Comentario"></app-custom-input>
+
+    <div class="validators" *ngIf="
+        form.controls.description.errors && form.controls.description.touched
+      ">
+      <div *ngIf="form.controls.description.errors?.['required']">
+        Este campo es requerido
+      </div>
+      <div *ngIf="form.controls.description.errors?.['minlength']">
+        Minimo de 6 caracteres
+      </div>
+    </div>
+
+    <ion-button mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid">
+      {{ evento ? "Actualizar evento" : "Agregar evento" }}
+      <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+    </ion-button>
+
+    <img class="logo" src="../../../assets/icon/logo-blanco.png" alt="">
+  </form>
+</ion-content>
