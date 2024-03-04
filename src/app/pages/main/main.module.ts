@@ -18,6 +18,7 @@ import { FiltradoPipe } from 'src/app/pipes/filtrado.pipe';
 import { HomePage } from './home/home.page';
 import { RegisterGroupPage } from './register-group/register-group.page';
 import { PerfilGrupoPage } from './perfil-grupo/perfil-grupo.page';
+import { CalendarPage } from './calendar/calendar.page';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { PerfilGrupoPage } from './perfil-grupo/perfil-grupo.page';
     PublicarPage,
     HomePage,
     RegisterGroupPage,
-    PerfilGrupoPage
+    PerfilGrupoPage,
+    CalendarPage
   ],
   declarations: [
     MainPage,
@@ -50,7 +52,8 @@ import { PerfilGrupoPage } from './perfil-grupo/perfil-grupo.page';
     FiltradoPipe,
     HomePage,
     RegisterGroupPage,
-    PerfilGrupoPage
+    PerfilGrupoPage,
+    CalendarPage
   ]
 })
 export class MainPageModule {}

@@ -11,6 +11,7 @@ import { PublicarPage } from './publicar/publicar.page';
 import { HomePage } from './home/home.page';
 import { RegisterGroupPage } from './register-group/register-group.page';
 import { PerfilGrupoPage } from './perfil-grupo/perfil-grupo.page';
+import { CalendarPage } from './calendar/calendar.page';
 
 const routes: Routes = [
   {
@@ -53,6 +54,11 @@ const routes: Routes = [
         path: 'perfil-grupo',
         component: PerfilGrupoPage
       },
+      {
+        path: 'calendar',
+        component: CalendarPage
+      },
+
     ]
   },
 
