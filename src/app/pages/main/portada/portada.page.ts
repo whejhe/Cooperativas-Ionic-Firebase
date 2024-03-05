@@ -42,8 +42,8 @@ export class PortadaPage implements OnInit {
   }
 
   getPublicaciones() {
-    let path = `users/${this.user().uid}/publicaciones`;
-
+    // let path = `users/${this.user().uid}/publicaciones`;
+    let path = `publicaciones`;
     this.loading = true;
 
     let query = [

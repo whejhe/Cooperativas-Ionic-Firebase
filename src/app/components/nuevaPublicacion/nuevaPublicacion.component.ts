@@ -20,6 +20,7 @@ export class NuevaPublicacionComponent implements OnInit {
     image: new FormControl(''),
     comentario: new FormControl('', [Validators.required, Validators.minLength(6)]),
     date: new FormControl(this.getCurrentFormattedDate()),
+    userId: new FormControl(''),
   })
 
   firebaseSvc = inject(FirebaseService);
@@ -32,6 +33,7 @@ export class NuevaPublicacionComponent implements OnInit {
     if(this.publicacion){
       this.form.setValue(this.publicacion);
     }
+    this.form.controls.userId.setValue(this.user.uid);
   }
 
   //FORMATO FECHA
@@ -64,20 +66,24 @@ export class NuevaPublicacionComponent implements OnInit {
   //CREAR PUBLICACION
   async createPublicacion() {
 
-    let path = `users/${this.user.uid}/publicaciones`;
+    // let path = `users/${this.user.uid}/publicaciones`;
+    let pathPortada = `publicaciones`;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
 
     //SUBIR IMAGEN Y OBTENER URL
     let dataUrl = this.form.value.image;
-    let imagePath = `${this.user.uid}/${Date.now()}`;
+    let imagePath = `publicaciones/${Date.now()}`;
+    // let imagePath = `${this.user.uid}/${Date.now()}`;
     let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+    let usuarioId = this.utilsSvc.getFromLocalStorage('user').uid;
     this.form.controls.image.setValue(imageUrl);
+    this.form.controls.userId.setValue(usuarioId);
 
-    this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
+    this.firebaseSvc.addDocument(pathPortada, this.form.value).then(async res => {
 
-      this.utilsSvc.dismissModal({ sucess: true });
+      this.utilsSvc.dismissModal({ success: true });
 
       this.utilsSvc.presentToast({
         message: 'Publicacion agregada correctamente',
@@ -105,7 +111,8 @@ export class NuevaPublicacionComponent implements OnInit {
   //ACTUALIZAR PRODUCTO
   async updatePublicacion() {
 
-    let path = `users/${this.user.uid}/publicaciones/${this.publicacion.title}`;
+    // let path = `users/${this.user.uid}/publicaciones/${this.publicacion.title}`;
+    let pathPortada = `publicaciones`;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
@@ -120,7 +127,7 @@ export class NuevaPublicacionComponent implements OnInit {
 
     delete this.form.value.title;
 
-    this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
+    this.firebaseSvc.updateDocument(pathPortada, this.form.value).then(async res => {
 
       this.utilsSvc.dismissModal({ sucess: true });
 

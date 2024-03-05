@@ -3,4 +3,5 @@ export interface Publicacion{
   image: string;
   comentario: string;
   date: string;
+  userId: string;
 }

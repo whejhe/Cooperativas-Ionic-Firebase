@@ -17,6 +17,7 @@ export class PublicarPage implements OnInit {
     image: new FormControl(''),
     comentario: new FormControl('', [Validators.required]),
     date: new FormControl(''),
+    userId: new FormControl(''),
   })
 
   firebaseSvc = inject(FirebaseService);
