@@ -1,0 +1,24 @@
+docker build -t whejhe/ionic-firebase:v1 -f .\Dockerfile .
+
+docker login
+
+docker push whejhe/ionic-firebase:v1
+
+EJECTURA COMANDOS DENTRO DE DOCKER
+sudo docker exec -it nombre_contenedor /bin/bash
+
+EDITAR ARCHIVO CONFIGURACION
+sudo nano docker-compose.yml
+
+VER CONTENEDORES EN EJECUCION
+sudo docker-compose ps
+
+DETENER CONTENEDOR
+sudo docker stop nombre_contenedor
+
+TRAER CONTENEDOR
+sudo docker-compose pull
+
+EJECUTAR CONTENEDOR
+sudo docker-compose up
+
