@@ -4,11 +4,14 @@ docker login
 
 docker push whejhe/ionic-firebase:v1
 
-EJECTURA COMANDOS DENTRO DE DOCKER
-sudo docker exec -it nombre_contenedor /bin/bash
-
 EDITAR ARCHIVO CONFIGURACION
 sudo nano docker-compose.yml
+
+ionic-EJECTURA COMANDOS DENTRO DE DOCKER
+sudo docker exec -it nombre_contenedor /bin/bash
+
+TRAER CONTENEDOR
+sudo docker-compose pull
 
 VER CONTENEDORES EN EJECUCION
 sudo docker-compose ps
@@ -16,9 +19,14 @@ sudo docker-compose ps
 DETENER CONTENEDOR
 sudo docker stop nombre_contenedor
 
-TRAER CONTENEDOR
-sudo docker-compose pull
 
 EJECUTAR CONTENEDOR
 sudo docker-compose up
 
+
+
+AGREGAR USUARIO A GRUPO DOCKER
+sudo usermod -aG docker ${USER}
+su - ${USER}
+id -nG
+sudo usermod -aG docker username (añadir otros usuarios)

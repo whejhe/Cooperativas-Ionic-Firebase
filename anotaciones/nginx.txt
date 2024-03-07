@@ -1,0 +1,34 @@
+version: '3'
+services:
+  npm-app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: db
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: npm
+      DB_MYSQL_PASSWORD: s0ftc0m
+      DB_MYSQL_NAME: npm
+    volumes:
+      - /datos/data/nginx-proxy-manager:/data
+      - /datos/data/logs:/var/log/nginx
+      - /datos/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+ 
+  db:
+    image: mariadb:latest
+    container_name: nginx-proxy-manager-db
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: npm
+      MYSQL_USER: npm
+      MYSQL_PASSWORD: test
+    volumes:
+      - /datos/data/db:/var/lib/mysql
+    restart: unless-stopped
